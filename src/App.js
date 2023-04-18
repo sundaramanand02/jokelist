@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import {React,useState} from 'react'
+import axios from 'axios'
 
-function App() {
+const App = () => {
+  const [joke, setjoke] = useState('');
+  // let jokeList=[];
+  const [jokeList, setjokeList] = useState([]); 
+  const getJoke=()=>{
+    let list=jokeList;
+    axios.get('https://official-joke-api.appspot.com/random_joke')
+    // .then((res)=>console.log(res))
+    .then((res)=>{setjoke(`${res.data.setup} ${res.data.punchline}`);})
+    .catch((err)=>console.log(err));
+    list.push(joke);
+    setjokeList(list); 
+    // jokeList.map((joke)=>console.log(joke));
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <div>App</div>
+    <button onClick={getJoke}>Click here to get a free Joke</button> 
+    <div>
+      {jokeList.length}
+      {jokeList.length>0?
+      jokeList.map((joke)=><div>{joke}</div>):
+      <div>No Jokes here</div>
+      }
     </div>
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App
