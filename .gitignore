@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+#app1 is for another file
+App1.js
+
 # dependencies
 /node_modules
 /.pnp
